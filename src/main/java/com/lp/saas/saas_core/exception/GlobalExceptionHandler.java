@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
         ApiErrorResponse error = new ApiErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
-                "Data validation error",
+                "Data validation error - " + ex.getBindingResult().getFieldError().getDefaultMessage(),
                 request.getRequestURI()
         );
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
