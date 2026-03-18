@@ -7,12 +7,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 @RestController
 @RequestMapping("/api/v1/organizations")
 @RequiredArgsConstructor
 public class OrganizationController {
+
     private final OrganizationService service;
 
     @PostMapping
@@ -22,9 +25,23 @@ public class OrganizationController {
     }
 
     @GetMapping
-    public List<Organization> getAll() { return service.getAll(); }
+    public Page<Organization> getAll(Pageable pageable) {
+        return service.getAll(pageable);
+    }
 
     @GetMapping("/{id}")
-    public Organization getById(@PathVariable Long id) { return service.getById(id); }
-}
+    public Organization getById(@PathVariable Long id) {
+        return service.getById(id);
+    }
 
+    @PutMapping("/{id}")
+    public Organization update(@PathVariable Long id, @Valid @RequestBody OrganizationCreateDTO dto) {
+        return service.update(id, dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT) 
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
+}

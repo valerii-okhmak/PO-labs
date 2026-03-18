@@ -1,6 +1,9 @@
 package com.lp.saas.saas_core.repository;
 
 import com.lp.saas.saas_core.model.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository public class ResourceLimitRepository extends InMemoryRepository<ResourceLimit> {}
+@Repository public interface ResourceLimitRepository extends JpaRepository<ResourceLimit, Long> {}
+
+
